@@ -25,6 +25,7 @@ int main() {
 
 	while (!WindowShouldClose()) {
 		UpdateCamera(&cam, CAMERA_THIRD_PERSON);
+	
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		BeginMode3D(cam);
@@ -35,13 +36,13 @@ int main() {
 		DrawText("Loading obj file", 10, GetScreenHeight() - 25, 25, DARKGRAY);
 		EndDrawing();
 		if (IsKeyDown(KEY_D))
-			cam.position.x++;
+			pos.x++;
 		if (IsKeyDown(KEY_A))
-			cam.position.x--;
+			pos.x--;
 		if (IsKeyDown(KEY_S))
-			cam.position.z++;
+			pos.z++;
 		if (IsKeyDown(KEY_W))
-			cam.position.z--;
+			pos.z--;
 		//cam = cameramovement(cam);
 	}
 		UnloadTexture(tex);
