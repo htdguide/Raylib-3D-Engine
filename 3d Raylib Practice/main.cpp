@@ -1,14 +1,18 @@
 #include "raylib.h"
+#include "entity.h"
+
+
+
 Camera cameramovement(Camera cam) {
 	cam.target.x = GetMousePosition().x;
 	cam.target.y = GetMousePosition().y;
+	
 	return cam;
 }
 int main() {
 	InitWindow(1280, 720, "Model Loading");
-	Model duck = LoadModel("./assets/duck/OBJ/RubberDuck_LOD0.obj");
-	Texture2D tex = LoadTexture("./assets/duck/Unity/RubberDuck_AlbedoTransparency.png");
-	duck.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = tex;
+	Entity duck = Entity("./assets/duck/OBJ/RubberDuck_LOD0.obj", "./assets/duck/Unity/RubberDuck_AlbedoTransparency.png", "duck");
+	duck.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = duck.entityTexture;
 
 	Camera cam = { 0 };
 	cam.position = Vector3 { 50.0f,50.0f,50.0f };
@@ -18,18 +22,18 @@ int main() {
 	cam.projection = CAMERA_PERSPECTIVE;
 
 	Vector3 pos = { 0.0f, 0.0f, 0.0f };
-	BoundingBox bounds = GetMeshBoundingBox(duck.meshes[0]);
 
 	SetTargetFPS(60);
 	
 
 	while (!WindowShouldClose()) {
+		BoundingBox bounds = GetMeshBoundingBox(duck.entityModel.meshes[0]);
 		UpdateCamera(&cam, CAMERA_THIRD_PERSON);
 	
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		BeginMode3D(cam);
-		DrawModel(duck, pos, 1.0f, WHITE);
+		DrawModel(duck.entityModel, pos, 1.0f, WHITE);
 		DrawGrid(20, 10.0f);
 		DrawBoundingBox(bounds, GREEN);
 		EndMode3D();
@@ -43,10 +47,9 @@ int main() {
 			pos.z++;
 		if (IsKeyDown(KEY_W))
 			pos.z--;
-		//cam = cameramovement(cam);
 	}
-		UnloadTexture(tex);
-		UnloadModel(duck);
+		UnloadTexture(duck.entityTexture);
+		UnloadModel(duck.entityModel);
 		CloseWindow();
 		return 0;	
 }
