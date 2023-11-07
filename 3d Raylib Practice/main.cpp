@@ -1,55 +1,60 @@
 #include "raylib.h"
 #include "entity.h"
 
+using namespace std;
 
-
-Camera cameramovement(Camera cam) {
-	cam.target.x = GetMousePosition().x;
-	cam.target.y = GetMousePosition().y;
-	
-	return cam;
+int mouseHandler(int x, int y) {
+	if (x >= GetScreenWidth() - 1)
+		SetMousePosition(GetScreenWidth() / 2, y);
+	if (y >= GetScreenHeight() - 1)
+		SetMousePosition(x, GetScreenHeight() / 2);
+	if (x == 0)
+		SetMousePosition(GetScreenWidth() / 2, y);
+	if (y == 0)
+		SetMousePosition(x, GetScreenHeight() / 2);
+	return 0;
 }
+
 int main() {
-	InitWindow(1280, 720, "Model Loading");
-	Entity duck = Entity("./assets/duck/OBJ/RubberDuck_LOD0.obj", "./assets/duck/Unity/RubberDuck_AlbedoTransparency.png", "duck");
+	InitWindow(1920, 1080, "Model Loading");
+	Entity duck = Entity("./assets/duck/OBJ/RubberDuck_LOD0.obj", "./assets/duck/Unity/RubberDuck_AlbedoTransparency.png", "duck", Vector3{ 0.0f, 0.0f, 0.0f });
 	duck.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = duck.entityTexture;
 
 	Camera cam = { 0 };
-	cam.position = Vector3 { 50.0f,50.0f,50.0f };
+	Vector3 campos = { 50.0f,50.0f,50.0f };
+	cam.position = campos;
 	cam.target = Vector3{ 0.0f, 0.0f, 0.0f };
 	cam.up = Vector3{ 0.0f, 1.0f, 0.0f };
 	cam.fovy = 90.0f;
 	cam.projection = CAMERA_PERSPECTIVE;
+	SetTargetFPS(240);
+	ToggleFullscreen();
+	DisableCursor();
 
-	Vector3 pos = { 0.0f, 0.0f, 0.0f };
-
-	SetTargetFPS(60);
-	
-
-	while (!WindowShouldClose()) {
+	while (!WindowShouldClose() && !IsKeyPressed(KEY_ESCAPE)) {
 		BoundingBox bounds = GetMeshBoundingBox(duck.entityModel.meshes[0]);
-		UpdateCamera(&cam, CAMERA_THIRD_PERSON);
-	
+		mouseHandler(GetMouseX(), GetMouseY());
+		UpdateCamera(&cam, 4);
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		BeginMode3D(cam);
-		DrawModel(duck.entityModel, pos, 1.0f, WHITE);
+		DrawModel(duck.entityModel, duck.position, 1.0f, WHITE);
 		DrawGrid(20, 10.0f);
 		DrawBoundingBox(bounds, GREEN);
 		EndMode3D();
-		DrawText("Loading obj file", 10, GetScreenHeight() - 25, 25, DARKGRAY);
+
+		int mousePosX = GetMouseX();
+		int mousePosY = GetMouseY();
+		auto mouseX = std::to_string(mousePosX);
+		auto mouseY = std::to_string(mousePosY);
+
+	 	DrawText((const char *)mouseX.c_str(), 10, GetScreenHeight() - 25, 25, DARKGRAY);
+		DrawText((const char*)mouseY.c_str(), 300, GetScreenHeight() - 25, 25, DARKGRAY);
 		EndDrawing();
-		if (IsKeyDown(KEY_D))
-			pos.x++;
-		if (IsKeyDown(KEY_A))
-			pos.x--;
-		if (IsKeyDown(KEY_S))
-			pos.z++;
-		if (IsKeyDown(KEY_W))
-			pos.z--;
 	}
 		UnloadTexture(duck.entityTexture);
 		UnloadModel(duck.entityModel);
 		CloseWindow();
-		return 0;	
+		return 0;
+	
 }
