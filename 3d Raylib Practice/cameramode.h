@@ -2,19 +2,19 @@
 #include <iostream>
 #include <stdlib.h>
 #include <raylib.h>
+#include <cmath>
 #include <string>
+#include "entity.h"
 
 class Cameramode
 {
-private:
-	int speed;
-	bool horizontalLock, verticalLock, rotationLock;
-	Cameramode(int speed, bool horizontalLock, bool verticalLock, bool rotationLock); //Contructor header 
 	
 public:
-	void cameraMovement() {
-		if (!horizontalLock && !verticalLock && !rotationLock) {             //No locks at all
+	Cameramode(); //Contructor header 
+	void cameraMovement(Entity entity, Vector2 mouseMov, float distance, float speed) {
 
-		}
+		entity.entityCamera.position.x = entity.position.x + distance * sin(mouseMov.x * speed) * cos(mouseMov.y * speed);
+		entity.entityCamera.position.y = entity.position.y + distance * sin(mouseMov.x * speed) * sin(mouseMov.y * speed);
+		entity.entityCamera.position.z = entity.position.z + distance * cos(mouseMov.y * speed);
 	}
 };
