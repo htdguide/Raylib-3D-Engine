@@ -45,8 +45,8 @@ int main() {
 		mouseHider();																									//If left click is pressed, cursor hides
 		duck.cameraMovement(GetMousePosition(), 100.0f, 1.0f);
 
-		xAxis = GetMousePosition().x / 5.3;
-		zAxis = GetMousePosition().y / 3;
+		xAxis = GetMousePosition().x / (GetScreenWidth()/360.0f);
+		zAxis = GetMousePosition().y / (GetScreenHeight()/360.0f);
 
 		//float xAxisRad = -(xAxis * PI) / 180;
 		//float zAxisRad = -(zAxis * PI) / 180;

@@ -30,8 +30,8 @@ class Entity
 
 		void cameraMovement(Vector2 mousePos, float distance, float speed) { //Method for camera control (Adjustable distance and speed)
 
-			float xAngle = mousePos.x / (GetScreenWidth()/360);								//Getting angle values from the screen width
-			float zAngle = mousePos.y / (GetScreenHeight()/360);							//Getting angle values from the screen height and applying aspect ratio
+			float xAngle = mousePos.x / (GetScreenWidth()/360.0f);								//Getting angle values from the screen width
+			float zAngle = mousePos.y / (GetScreenHeight()/360.0f);							//Getting angle values from the screen height and applying aspect ratio
 
 			float xAxisRad = -(xAngle * PI) / 180;
 			float zAxisRad = -(zAngle * PI) / 180;
