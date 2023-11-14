@@ -24,29 +24,33 @@ class Entity
 		void movement() {									//Entity movement method
 			if (IsKeyDown(KEY_W)) {
 				entityPosition.x++;
-				cameraSync();
+				//cameraSync();
 			}
 		}
 
-		void cameraMovement(Vector2 mousePos, float distance, float speed) { //Method for camera control (Adjustable distance and speed)
+		void cameraMovementThirdPerson(Vector2 mousePos, float distance, float speed) { //Method for camera control (Adjustable distance and speed)
 
-			float xAngle = mousePos.x / (GetScreenWidth()/360.0f);								//Getting angle values from the screen width
-			float zAngle = mousePos.y / (GetScreenHeight()/360.0f);							//Getting angle values from the screen height and applying aspect ratio
+			float xAngle = mousePos.x / (GetScreenWidth()/360.0f);									//Getting angle values from the screen width
+			if (mousePos.y == 0) mousePos.y++;														//Removing 0 from the upcoming formula
+			float zAngle = mousePos.y / (GetScreenHeight()/180.0f);									//Getting angle values from the screen height and applying aspect ratio
 
-			float xAxisRad = -(xAngle * PI) / 180;
-			float zAxisRad = -(zAngle * PI) / 180;
+			
+			zAngle -= 90.0f;
 
-			// Calculate the new position relative to the duck's position
+			float xAxisRad = -(xAngle * PI) / 180.0f;
+			float zAxisRad = -(zAngle * PI) / 180.0f;
+
+																									// Calculate the new position relative to the duck's position
 			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);
 			float offsetY = distance * sin(zAxisRad);
 			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);
 
-			// Update the camera position relative to the duck
+																									// Update the camera position relative to the duck
 			entityCamera.position.x = entityPosition.x + offsetX;
 			entityCamera.position.y = entityPosition.y + offsetY;
 			entityCamera.position.z = entityPosition.z + offsetZ;
 
-			// Look at the duck's position
+																									// Look at the duck's position
 			entityCamera.target.x = entityPosition.x;
 			entityCamera.target.y = entityPosition.y;
 			entityCamera.target.z = entityPosition.z;
