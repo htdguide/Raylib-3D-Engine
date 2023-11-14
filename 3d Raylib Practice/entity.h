@@ -24,7 +24,15 @@ class Entity
 		void movement() {									//Entity movement method
 			if (IsKeyDown(KEY_W)) {
 				entityPosition.x++;
-				//cameraSync();
+			}
+			if (IsKeyDown(KEY_S)) {
+				entityPosition.x--;
+			}
+			if (IsKeyDown(KEY_D)) {
+				entityPosition.z++;
+			}
+			if (IsKeyDown(KEY_A)) {
+				entityPosition.z--;
 			}
 		}
 

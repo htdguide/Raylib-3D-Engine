@@ -43,12 +43,17 @@ int main() {
 		int mousePosY = GetMousePosition().y;																			//Debugging
 		auto mouseX = std::to_string(mousePosX);																		//Debugging
 		auto mouseY = std::to_string(mousePosY);
+		auto posX = std::to_string(duck.entityPosition.x);																		//Debugging
+		auto posY = std::to_string(duck.entityPosition.z);
 
 
 		duck.movement();																								//Entity movement method
-			
+	
+
 	 	DrawText((const char *)mouseX.c_str(), 10, GetScreenHeight() - 25, 25, DARKGRAY);								//Debugging text
 		DrawText((const char*)mouseY.c_str(), 300, GetScreenHeight() - 25, 25, DARKGRAY);
+		DrawText((const char*)posX.c_str(), 10, 25, 25, DARKGRAY);								//Debugging text
+		DrawText((const char*)posY.c_str(), 300, 25, 25, DARKGRAY);
 		EndDrawing();
 	}
 	UnloadTexture(duck.entityTexture);
