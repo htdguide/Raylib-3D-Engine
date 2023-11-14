@@ -9,10 +9,10 @@ Entity::Entity(const char* modelpath, const char* texturepath, std::string inNam
 	entityModel = LoadModel(modelpath);																	//Loading the model
 	entityTexture = LoadTexture(texturepath);															//Loading the texture
 	name = inName;																						//Assigning the name
-	position = inPos;																					//Assigning the position
+	entityPosition = inPos;																					//Assigning the position
 	entityCamera = { 0 };																				//Assigning the Camera3D
-	entityCamera.position = { position.x + camgap.x, position.y + camgap.y, position.z + camgap.z };	//Calculating camera position with the gap
-	entityCamera.target = position;																		//Assigning at where camera looking at
+	entityCamera.position = { entityPosition.x + camgap.x, entityPosition.y + camgap.y, entityPosition.z + camgap.z };	//Calculating camera position with the gap
+	entityCamera.target = entityPosition;																		//Assigning at where camera looking at
 	entityCamera.up = Vector3{ 0.0f, 1.0f, 0.0f };														//Camera rotation axis
 	entityCamera.fovy = 90.0f;																			//Camera FOV
 	entityCamera.projection = CAMERA_PERSPECTIVE;														//Camera projection from raylib

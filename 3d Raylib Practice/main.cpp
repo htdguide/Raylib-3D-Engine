@@ -1,20 +1,14 @@
 #include "raylib.h"
 #include "entity.h"
-#include "cameramode.h"
 #include <cmath>
 
 using namespace std;
 
-int mouseHandler(int x, int y) {												//If mouse hits the corner, cursor goes to the center coodrdinate
-	if (x >= GetScreenWidth() - 1)
-		SetMousePosition(GetScreenWidth() / 2, y);
-	if (y >= GetScreenHeight() - 1)
-		SetMousePosition(x, GetScreenHeight() / 2);
-	if (x == 0)
-		SetMousePosition(GetScreenWidth() / 2, y);
-	if (y == 0)
-		SetMousePosition(x, GetScreenHeight() / 2);
-	return 0;
+void mouseHandler(int x, int y) {												//If mouse hits the corner, cursor goes to the opposite side coodrdinate
+	if (x >= GetScreenWidth() - 1)	SetMousePosition(0, y);
+	if (y >= GetScreenHeight() - 1)	SetMousePosition(x, 0);
+	if (x == 0)	SetMousePosition(GetScreenWidth(), y);
+	if (y == 0)	SetMousePosition(x, GetScreenHeight());
 }
 
 int mouseHider() {																			//If left mouse clicked, hiding the cursor
@@ -31,7 +25,6 @@ int main() {
 	float xAxis = 0.0f;
 	float zAxis = 0.0f;
 
-	Cameramode mycamera = Cameramode();
 
 	SetTargetFPS(60);
 	ToggleFullscreen();
@@ -43,37 +36,35 @@ int main() {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		BeginMode3D(duck.entityCamera);																					//Starting 3d with camera of the entity
-		DrawModel(duck.entityModel, duck.position, 1.0f, WHITE);														//Drawing a model
+		DrawModel(duck.entityModel, duck.entityPosition, 1.0f, WHITE);														//Drawing a model
 		DrawGrid(20, 10.0f);
 		DrawBoundingBox(bounds, GREEN);
 		EndMode3D();
 
 
 		mouseHider();																									//If left click is pressed, cursor hides
-
-
-
+		duck.cameraMovement(GetMousePosition(), 100.0f, 1.0f);
 
 		xAxis = GetMousePosition().x / 5.3;
 		zAxis = GetMousePosition().y / 3;
 
-		float xAxisRad = -(xAxis * PI) / 180;
-		float zAxisRad = -(zAxis * PI) / 180;
+		//float xAxisRad = -(xAxis * PI) / 180;
+		//float zAxisRad = -(zAxis * PI) / 180;
 
-		// Calculate the new position relative to the duck's position
-		float offsetX = 100 * cos(zAxisRad) * sin(xAxisRad);
-		float offsetY = 100 * sin(zAxisRad);
-		float offsetZ = 100 * cos(zAxisRad) * cos(xAxisRad);
+		//// Calculate the new position relative to the duck's position
+		//float offsetX = 100 * cos(zAxisRad) * sin(xAxisRad);
+		//float offsetY = 100 * sin(zAxisRad);
+		//float offsetZ = 100 * cos(zAxisRad) * cos(xAxisRad);
 
-		// Update the camera position relative to the duck
-		duck.entityCamera.position.x = duck.position.x + offsetX;
-		duck.entityCamera.position.y = duck.position.y + offsetY;
-		duck.entityCamera.position.z = duck.position.z + offsetZ;
+		//// Update the camera position relative to the duck
+		//duck.entityCamera.position.x = duck.position.x + offsetX;
+		//duck.entityCamera.position.y = duck.position.y + offsetY;
+		//duck.entityCamera.position.z = duck.position.z + offsetZ;
 
-		// Look at the duck's position
-		duck.entityCamera.target.x = duck.position.x;
-		duck.entityCamera.target.y = duck.position.y;
-		duck.entityCamera.target.z = duck.position.z;
+		//// Look at the duck's position
+		//duck.entityCamera.target.x = duck.position.x;
+		//duck.entityCamera.target.y = duck.position.y;
+		//duck.entityCamera.target.z = duck.position.z;
 
 
 		int mousePosX = GetMouseDelta().x;																					//Debugging 
