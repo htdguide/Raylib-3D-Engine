@@ -12,7 +12,7 @@ class Entity
 		Texture2D entityTexture;							//Entity Texture
 		Camera3D entityCamera;								//Entity Camera
 		Vector3 entityPosition;									//Entity Position
-		Vector3 camgap = { 50.0f,50.0f,50.0f };				//Entity Camera Gap from the position
+		Vector3 camgap = { 50.0f, 50.0f ,50.0f };				//Entity Camera Gap from the position
 		
 		Entity(const char* modelpath, const char* texturepath, std::string inName, Vector3 inPos); //Contructor header [modelpath, texturepath, name, position]
 
