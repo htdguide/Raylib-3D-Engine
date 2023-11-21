@@ -20,11 +20,9 @@ int mouseHider() {																			//If left mouse clicked, hiding the cursor
 int main() {
 	InitWindow(1920, 1080, "Model Loading");																																		//Initializing window
 	Entity duck = Entity("./assets/ae86/ToyotaAE86.obj", "./assets/ae86/textures/Palette.png", "duck", Vector3{ 1.0f, 1.0f, 1.0f });
-	Entity map = Entity("./assets/map/map.obj", "./assets/map/standard_material.png", "map", Vector3{ 0.0f, 0.0f, 0.0f });	//Initializing entity
+	Entity map = Entity("./assets/map/map.obj", "./assets/map/material.001.png", "map", Vector3{ 0.0f, 0.0f, 0.0f });	//Initializing entity
 	duck.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = duck.entityTexture;	
 	map.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = map.entityTexture;
-	Texture2D texture2 = LoadTexture("./assets/map/material.001.png");
-	//map.entityModel.materials[1].maps[MATERIAL_MAP_DIFFUSE].texture = texture2;
 
 
 	SetTargetFPS(60);
@@ -67,7 +65,6 @@ int main() {
 	UnloadModel(duck.entityModel);
 	UnloadTexture(map.entityTexture);
 	UnloadModel(map.entityModel);
-	UnloadTexture(texture2);
 	CloseWindow();
 	return 0;
 	
