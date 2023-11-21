@@ -21,10 +21,14 @@ int main() {
 	InitWindow(1920, 1080, "Model Loading");																																		//Initializing window
 	Entity duck = Entity("./assets/ae86/ToyotaAE86.obj", "./assets/ae86/textures/Palette.png", "duck", Vector3{ 1.0f, 1.0f, 1.0f });
 	Entity map = Entity("./assets/map/map.obj", "./assets/map/material.001.png", "map", Vector3{ 0.0f, 0.0f, 0.0f });	//Initializing entity
+	Entity wheel = Entity("./assets/wheel/wheel.obj", "./assets/wheel/texturealbedo.png", "wheel", Vector3{ 0.0f, 1.0f, 0.0f });	//Initializing entity
 	duck.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = duck.entityTexture;	
 	map.entityModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = map.entityTexture;
-
-
+	wheel.entityModel.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = wheel.entityTexture;
+	Texture2D texture2 = LoadTexture("./assets/wheel/texturnormal.png");
+	wheel.entityModel.materials[0].maps[MATERIAL_MAP_NORMAL].texture = texture2;
+	Texture2D texture3 = LoadTexture("./assets/wheel/texturespecular.png");
+	wheel.entityModel.materials[0].maps[MATERIAL_MAP_SPECULAR].texture = texture3;
 	SetTargetFPS(60);
 	ToggleFullscreen();
 
@@ -36,6 +40,8 @@ int main() {
 		BeginMode3D(duck.entityCamera);																					//Starting 3d with camera of the entity
 		DrawModel(duck.entityModel, duck.entityPosition, 1.0f, WHITE);	
 		DrawModel(map.entityModel, map.entityPosition, 250.0f, WHITE);													//Drawing a model
+		DrawModel(wheel.entityModel, wheel.entityPosition, 0.13f, WHITE);
+		
 		DrawGrid(500, 10.0f);
 		EndMode3D();
 
@@ -65,6 +71,8 @@ int main() {
 	UnloadModel(duck.entityModel);
 	UnloadTexture(map.entityTexture);
 	UnloadModel(map.entityModel);
+	UnloadTexture(wheel.entityTexture);
+	UnloadModel(wheel.entityModel);
 	CloseWindow();
 	return 0;
 	
