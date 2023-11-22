@@ -6,10 +6,10 @@
 class Level
 {
 	public:
-		std::string name;								   //Level name
-		Model levelModel;									//Level 3D model
-		Texture2D levelTexture;							//Level Texture
+		std::string name;																						//Level name
+		Model levelModel;																						//Level 3D model
+		Texture2D levelTexture;																					//Level Texture
 
-		Level(const char* modelpath, const char* texturepath, std::string inName); //Level constructor
+		Level(const char* modelpath, const char* texturepath, std::string inName);							    //Contructor [modelpath, texturepath, name, position]
 };
 

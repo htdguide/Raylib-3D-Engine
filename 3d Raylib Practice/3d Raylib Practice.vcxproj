@@ -136,11 +136,13 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scenario.cpp" />
     <ClCompile Include="vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entity.h" />
     <ClInclude Include="level.h" />
+    <ClInclude Include="scenario.h" />
     <ClInclude Include="vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
