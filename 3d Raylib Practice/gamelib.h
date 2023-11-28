@@ -27,10 +27,10 @@ typedef struct Vehicle {																							//Vehicle struct - name, model, t
 	Texture2D texture;																								//Vehicle Texture
 	Camera3D camera;																								//Vehicle Camera
 	Vector3 position;																								//Vehicle Position			
-	Entity wheelFL;
-	Entity wheelFR; 
-	Entity wheelRL; 
-	Entity wheelRR;																		//Vehicle wheels
+	Entity wheelFL;																									//Vehicle wheel
+	Entity wheelFR;																									//Vehicle wheel
+	Entity wheelRL;																									//Vehicle wheel
+	Entity wheelRR;																									//Vehicle wheel
 
 }Vehicle;
 
@@ -38,7 +38,7 @@ class actions																										//Actions class
 {
 	public:
 
-		Vehicle movement(Vehicle vehicle, float speed) {																				//Vehicle movement method
+		Vehicle movement(Vehicle vehicle, float speed) {															//Vehicle movement method, with the wheels
 			if (IsKeyDown(KEY_A)) {
 				vehicle.position.x += speed;
 				vehicle.wheelFL.position.x += speed;
@@ -71,7 +71,7 @@ class actions																										//Actions class
 			return vehicle;
 		}
 
-		Entity movement(Entity entity, float speed) {																				//Entity movement method
+		Entity movement(Entity entity, float speed) {																	//Entity movement method
 			if (IsKeyDown(KEY_A)) {
 				entity.position.x += speed;
 			}
@@ -93,25 +93,22 @@ class actions																										//Actions class
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
 			float zAngle = mousePos.y / (GetScreenHeight() / 180.0f);													//Getting angle values from the screen height and applying aspect ratio
 
-			zAngle -= 90.0f;
+			zAngle -= 90.0f;																							//Removing half of the degrees to spawn a camera looking forward
 
-			float xAxisRad = -(xAngle * PI) / 180.0f;
-			float zAxisRad = -(zAngle * PI) / 180.0f;
+			float xAxisRad = -(xAngle * PI) / 180.0f;																	//Calculating radians
+			float zAxisRad = -(zAngle * PI) / 180.0f;																	//Calculating radians
 
-			// Calculate the new position relative to the duck's position
-			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);
-			float offsetY = distance * sin(zAxisRad);
-			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);
+			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
+			float offsetY = distance * sin(zAxisRad);																	//Calculate the offset coordinates, point on the surface of the sphere
+			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
 
-			// Update the camera position relative to the duck
-			entity.camera.position.x = entity.position.x + offsetX;
-			entity.camera.position.y = entity.position.y + offsetY;
-			entity.camera.position.z = entity.position.z + offsetZ;
+			entity.camera.position.x = entity.position.x + offsetX;														//Update the camera position relative to the entity by adding the offset
+			entity.camera.position.y = entity.position.y + offsetY;														//Update the camera position relative to the entity by adding the offset
+			entity.camera.position.z = entity.position.z + offsetZ;														//Update the camera position relative to the entity by adding the offset
 
-			// Look at the duck's position
-			entity.camera.target.x = entity.position.x;
-			entity.camera.target.y = entity.position.y;
-			entity.camera.target.z = entity.position.z;
+			entity.camera.target.x = entity.position.x;																	//Look at the entity's position
+			entity.camera.target.y = entity.position.y;																	//Look at the entity's position
+			entity.camera.target.z = entity.position.z;																	//Look at the entity's position
 
 			if (GetMouseX() >= GetScreenWidth() - 1) SetMousePosition(1, GetMouseY());									// Cycling mouse movement if it reach the bounds
 			if (GetMouseX() == 0)	SetMousePosition(GetScreenWidth(), GetMouseY());									// Cycling mouse movement if it reach the bounds
@@ -125,25 +122,24 @@ class actions																										//Actions class
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
 			float zAngle = mousePos.y / (GetScreenHeight() / 180.0f);													//Getting angle values from the screen height and applying aspect ratio
 
-			zAngle -= 90.0f;
+			zAngle -= 90.0f;																							//Removing half of the degrees to spawn a camera looking forward
 
-			float xAxisRad = -(xAngle * PI) / 180.0f;
-			float zAxisRad = -(zAngle * PI) / 180.0f;
+			float xAxisRad = -(xAngle * PI) / 180.0f;																	//Calculating radians
+			float zAxisRad = -(zAngle * PI) / 180.0f;																	//Calculating radians
 
-			// Calculate the new position relative to the duck's position
-			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);
-			float offsetY = distance * sin(zAxisRad);
-			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);
+			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
+			float offsetY = distance * sin(zAxisRad);																	//Calculate the offset coordinates, point on the surface of the sphere
+			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
 
 			// Update the camera position relative to the duck
-			vehicle.camera.position.x = vehicle.position.x + offsetX;
-			vehicle.camera.position.y = vehicle.position.y + offsetY;
-			vehicle.camera.position.z = vehicle.position.z + offsetZ;
+			vehicle.camera.position.x = vehicle.position.x + offsetX;													//Update the camera position relative to the vehicle by adding the offset
+			vehicle.camera.position.y = vehicle.position.y + offsetY;													//Update the camera position relative to the vehicle by adding the offset
+			vehicle.camera.position.z = vehicle.position.z + offsetZ;													//Update the camera position relative to the vehicle by adding the offset
 
 			// Look at the duck's position
-			vehicle.camera.target.x = vehicle.position.x;
-			vehicle.camera.target.y = vehicle.position.y;
-			vehicle.camera.target.z = vehicle.position.z;
+			vehicle.camera.target.x = vehicle.position.x;																//Look at the entity's position
+			vehicle.camera.target.y = vehicle.position.y;																//Look at the entity's position
+			vehicle.camera.target.z = vehicle.position.z;																//Look at the entity's position
 
 			if (GetMouseX() >= GetScreenWidth() - 1) SetMousePosition(1, GetMouseY());									// Cycling mouse movement if it reach the bounds
 			if (GetMouseX() == 0)	SetMousePosition(GetScreenWidth(), GetMouseY());									// Cycling mouse movement if it reach the bounds
@@ -151,39 +147,39 @@ class actions																										//Actions class
 			return vehicle;
 		}
 	
-		Vehicle initialize(Vehicle vehicle) {																			//Initializing a vehicle, assigning textures to the models, filling camera info
+		Vehicle initialize(Vehicle vehicle) {																					//Initializing a vehicle, assigning textures to the models, filling camera info
 			vehicle.camera = { 0 };
-			vehicle.camera.position = { vehicle.position.x + 10.0f, vehicle.position.y + 10.0f, vehicle.position.z + 10.0f }; //Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
-			vehicle.camera.target = vehicle.position;																	//Assigning at where camera looking at
-			vehicle.camera.up = Vector3{ 0.0f, 1.0f, 0.0f };															//Camera rotation axis
-			vehicle.camera.fovy = 90.0f;					
-			vehicle.camera.projection = CAMERA_PERSPECTIVE;	//Camera FOV
-			vehicle.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = vehicle.texture;
+			vehicle.camera.position = { vehicle.position.x + 10.0f, vehicle.position.y + 10.0f, vehicle.position.z + 10.0f };	//Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
+			vehicle.camera.target = vehicle.position;																			//Assigning at where camera looking at
+			vehicle.camera.up = Vector3{ 0.0f, 1.0f, 0.0f };																	//Camera rotation axis
+			vehicle.camera.fovy = 90.0f;																						//Camera FOV in degrees
+			vehicle.camera.projection = CAMERA_PERSPECTIVE;																		//Camera projection
+			vehicle.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = vehicle.texture;									//Assigning a texture to the model
 			return vehicle;
 		}
-		Level initialize(Level level) {																					//Initializing a level, assigning textures to the models
+		Level initialize(Level level) {																							//Initializing a level, assigning textures to the models
 			level.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = level.texture;
 			return level;
 		}
-		Entity initialize(Entity entity) {																				//Initializing an entity, assigning textures to the models, filling camera info
-			entity.camera = { 0 };
-			entity.camera.position = { entity.position.x + 10.0f, entity.position.y + 10.0f, entity.position.z + 10.0f }; //Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
-			entity.camera.target = entity.position;																	//Assigning at where camera looking at
-			entity.camera.up = Vector3{ 0.0f, 1.0f, 0.0f };															//Camera rotation axis
-			entity.camera.fovy = 90.0f;
-			entity.camera.projection = CAMERA_PERSPECTIVE;	//Camera FOV
-			entity.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = entity.texture;
+		Entity initialize(Entity entity) {																						//Initializing an entity, assigning textures to the models, filling camera info
+			entity.camera = { 0 };																								//Creating a camera
+			entity.camera.position = { entity.position.x + 10.0f, entity.position.y + 10.0f, entity.position.z + 10.0f };		//Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
+			entity.camera.target = entity.position;																				//Assigning at where camera looking at
+			entity.camera.up = Vector3{ 0.0f, 1.0f, 0.0f };																		//Camera rotation axis
+			entity.camera.fovy = 90.0f;																							//Camera FOV in degrees
+			entity.camera.projection = CAMERA_PERSPECTIVE;																		//Camera projection		
+			entity.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = entity.texture;										//Assigning a texture to the model
 			return entity;
 		}
 
-		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {
+		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {					//Draw a whole vehicle with a scale and tint
 			DrawModel(vehicle.model, position, vehicleScale, tint);
 			DrawModel(vehicle.wheelFL.model, vehicle.wheelFL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelFR.model, vehicle.wheelFR.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRL.model, vehicle.wheelRL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRR.model, vehicle.wheelRR.position, wheelScale, tint);
 		}
-		void vehicleUnload(Vehicle vehicle) {
+		void vehicleUnload(Vehicle vehicle) {																					//Unload a whole vehicle
 			UnloadTexture(vehicle.texture);
 			UnloadModel(vehicle.model);
 			UnloadTexture(vehicle.wheelFL.texture);

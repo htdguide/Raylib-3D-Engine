@@ -36,7 +36,7 @@ int main() {
 		auto posX = std::to_string(trueno.position.x);																															//Debugging
 		auto posY = std::to_string(trueno.position.z);
 
-		trueno = action.movement(trueno, 0.5f);																																							//Entity movement method
+		trueno = action.movement(trueno, 0.5f);																																	//Entity movement method
 
 	 	DrawText((const char *)mouseX.c_str(), 10, GetScreenHeight() - 25, 25, DARKGRAY);																						//Debugging text
 		DrawText((const char*)mouseY.c_str(), 300, GetScreenHeight() - 25, 25, DARKGRAY);
