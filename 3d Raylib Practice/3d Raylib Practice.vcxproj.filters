@@ -24,12 +24,18 @@
     <ClCompile Include="gamelib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="trueno.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scenario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gamelib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trueno.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,60 +4,85 @@
 #include <string>
 
 
-typedef struct Level {
+#ifndef gamelib
+#define gamelib
+
+typedef struct Entity {																								//Entity struct - name, model, texture2D, camera3D, vector3 position
+	std::string name;																								//Entity name
+	Model model;																									//Entity 3D model
+	Texture2D texture;																								//Entity Texture
+	Camera3D camera;																								//Entity Camera
+	Vector3 position;																								//Entity Position
+}Entity;
+
+typedef struct Level {																								//Level struct - name, model, texture2D
 	std::string name;																								//Level name
 	Model model;																									//Level 3D model
 	Texture2D texture;																								//Level Texture
 }Level;
 
-typedef struct Vehicle {
+typedef struct Vehicle {																							//Vehicle struct - name, model, texture2D, camera3D, vector3 position, wheelFL, wheelFR, wheelRL, wheelRR
 	std::string name;																								//Vehicle name
 	Model model;																									//Vehicle 3D model
 	Texture2D texture;																								//Vehicle Texture
 	Camera3D camera;																								//Vehicle Camera
-	Vector3 position;																								//Vehicle Position																				//Level Texture
-}Vehicle;
+	Vector3 position;																								//Vehicle Position			
+	Entity wheelFL;
+	Entity wheelFR; 
+	Entity wheelRL; 
+	Entity wheelRR;																		//Vehicle wheels
 
-typedef struct Entity {
-	std::string name;																								//Entity name
-	Model model;																									//Entity 3D model
-	Texture2D texture;																								//Entity Texture
-	Camera3D camera;																								//Entity Camera
-	Vector3 position;
-}Entity;
+}Vehicle;
 
 class actions																										//Actions class
 {
 	public:
 
-		Vehicle movement(Vehicle vehicle) {																				//Vehicle movement method
+		Vehicle movement(Vehicle vehicle, float speed) {																				//Vehicle movement method
 			if (IsKeyDown(KEY_A)) {
-				vehicle.position.x += 0.5f;
+				vehicle.position.x += speed;
+				vehicle.wheelFL.position.x += speed;
+				vehicle.wheelFR.position.x += speed;
+				vehicle.wheelRL.position.x += speed;
+				vehicle.wheelRR.position.x += speed;
+
 			}
 			if (IsKeyDown(KEY_D)) {
-				vehicle.position.x -= 0.5f;
+				vehicle.position.x -= speed;
+				vehicle.wheelFL.position.x -= speed;
+				vehicle.wheelFR.position.x -= speed;
+				vehicle.wheelRL.position.x -= speed;
+				vehicle.wheelRR.position.x -= speed;
 			}
 			if (IsKeyDown(KEY_W)) {
-				vehicle.position.z += 0.5f;
+				vehicle.position.z += speed;
+				vehicle.wheelFL.position.z += speed;
+				vehicle.wheelFR.position.z += speed;
+				vehicle.wheelRL.position.z += speed;
+				vehicle.wheelRR.position.z += speed;
 			}
 			if (IsKeyDown(KEY_S)) {
-				vehicle.position.z -= 0.5f;
+				vehicle.position.z -= speed;
+				vehicle.wheelFL.position.z -= speed;
+				vehicle.wheelFR.position.z -= speed;
+				vehicle.wheelRL.position.z -= speed;
+				vehicle.wheelRR.position.z -= speed;
 			}
 			return vehicle;
 		}
 
-		Entity movement(Entity entity) {																				//Entity movement method
+		Entity movement(Entity entity, float speed) {																				//Entity movement method
 			if (IsKeyDown(KEY_A)) {
-				entity.position.x += 0.5f;
+				entity.position.x += speed;
 			}
 			if (IsKeyDown(KEY_D)) {
-				entity.position.x -= 0.5f;
+				entity.position.x -= speed;
 			}
 			if (IsKeyDown(KEY_W)) {
-				entity.position.z += 0.5f;
+				entity.position.z += speed;
 			}
 			if (IsKeyDown(KEY_S)) {
-				entity.position.z -= 0.5f;
+				entity.position.z -= speed;
 			}
 			return entity;
 		}
@@ -67,7 +92,6 @@ class actions																										//Actions class
 			float xAngle = mousePos.x / (GetScreenWidth() / 360.0f);													//Getting angle values from the screen width
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
 			float zAngle = mousePos.y / (GetScreenHeight() / 180.0f);													//Getting angle values from the screen height and applying aspect ratio
-
 
 			zAngle -= 90.0f;
 
@@ -101,7 +125,6 @@ class actions																										//Actions class
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
 			float zAngle = mousePos.y / (GetScreenHeight() / 180.0f);													//Getting angle values from the screen height and applying aspect ratio
 
-
 			zAngle -= 90.0f;
 
 			float xAxisRad = -(xAngle * PI) / 180.0f;
@@ -128,7 +151,7 @@ class actions																										//Actions class
 			return vehicle;
 		}
 	
-		Vehicle initialize(Vehicle vehicle) {
+		Vehicle initialize(Vehicle vehicle) {																			//Initializing a vehicle, assigning textures to the models, filling camera info
 			vehicle.camera = { 0 };
 			vehicle.camera.position = { vehicle.position.x + 10.0f, vehicle.position.y + 10.0f, vehicle.position.z + 10.0f }; //Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
 			vehicle.camera.target = vehicle.position;																	//Assigning at where camera looking at
@@ -138,11 +161,11 @@ class actions																										//Actions class
 			vehicle.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = vehicle.texture;
 			return vehicle;
 		}
-		Level initialize(Level level) {
+		Level initialize(Level level) {																					//Initializing a level, assigning textures to the models
 			level.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = level.texture;
 			return level;
 		}
-		Entity initialize(Entity entity) {
+		Entity initialize(Entity entity) {																				//Initializing an entity, assigning textures to the models, filling camera info
 			entity.camera = { 0 };
 			entity.camera.position = { entity.position.x + 10.0f, entity.position.y + 10.0f, entity.position.z + 10.0f }; //Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
 			entity.camera.target = entity.position;																	//Assigning at where camera looking at
@@ -152,5 +175,27 @@ class actions																										//Actions class
 			entity.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = entity.texture;
 			return entity;
 		}
+
+		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {
+			DrawModel(vehicle.model, position, vehicleScale, tint);
+			DrawModel(vehicle.wheelFL.model, vehicle.wheelFL.position, wheelScale, tint);
+			DrawModel(vehicle.wheelFR.model, vehicle.wheelFR.position, wheelScale, tint);
+			DrawModel(vehicle.wheelRL.model, vehicle.wheelRL.position, wheelScale, tint);
+			DrawModel(vehicle.wheelRR.model, vehicle.wheelRR.position, wheelScale, tint);
+		}
+		void vehicleUnload(Vehicle vehicle) {
+			UnloadTexture(vehicle.texture);
+			UnloadModel(vehicle.model);
+			UnloadTexture(vehicle.wheelFL.texture);
+			UnloadTexture(vehicle.wheelFR.texture);
+			UnloadTexture(vehicle.wheelRL.texture);
+			UnloadTexture(vehicle.wheelRR.texture);
+			UnloadModel(vehicle.wheelFL.model);
+			UnloadModel(vehicle.wheelFR.model);
+			UnloadModel(vehicle.wheelRL.model);
+			UnloadModel(vehicle.wheelRR.model);
+		}
 	
 };
+
+#endif

@@ -136,10 +136,12 @@
     <ClCompile Include="gamelib.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scenario.cpp" />
+    <ClCompile Include="trueno.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamelib.h" />
     <ClInclude Include="scenario.h" />
+    <ClInclude Include="trueno.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
