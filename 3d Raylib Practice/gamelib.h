@@ -130,13 +130,11 @@ class actions																										//Actions class
 			float offsetX = distance * cos(zAxisRad) * sin(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
 			float offsetY = distance * sin(zAxisRad);																	//Calculate the offset coordinates, point on the surface of the sphere
 			float offsetZ = distance * cos(zAxisRad) * cos(xAxisRad);													//Calculate the offset coordinates, point on the surface of the sphere
-
-			// Update the camera position relative to the duck
+	
 			vehicle.camera.position.x = vehicle.position.x + offsetX;													//Update the camera position relative to the vehicle by adding the offset
 			vehicle.camera.position.y = vehicle.position.y + offsetY;													//Update the camera position relative to the vehicle by adding the offset
 			vehicle.camera.position.z = vehicle.position.z + offsetZ;													//Update the camera position relative to the vehicle by adding the offset
 
-			// Look at the duck's position
 			vehicle.camera.target.x = vehicle.position.x;																//Look at the entity's position
 			vehicle.camera.target.y = vehicle.position.y;																//Look at the entity's position
 			vehicle.camera.target.z = vehicle.position.z;																//Look at the entity's position
