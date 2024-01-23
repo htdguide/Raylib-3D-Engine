@@ -6,7 +6,7 @@
 
 int main() {
 
-	InitWindow(1920, 1080, "Model Loading");																																	//Initializing window
+	InitWindow(GetScreenWidth(), GetScreenHeight(), "Model Loading");																																	//Initializing window
 	SetTargetFPS(60);
 	ToggleFullscreen();
 
