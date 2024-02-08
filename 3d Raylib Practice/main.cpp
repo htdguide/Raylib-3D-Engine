@@ -2,15 +2,18 @@
 #include "gamelib.h"
 #include <cmath>
 #include "trueno.h"
-
+#define RAYGUI_IMPLEMENTATION
+#include "C:\Users\mogil\source\repos\htdguide\3d-Raylib-Practice\raylib-4.5.0_win64_msvc16\raygui-master\src\raygui.h"
 
 int main() {
 
 	InitWindow(GetScreenWidth(), GetScreenHeight(), "Model Loading");																																	//Initializing window
 	SetTargetFPS(60);
 	ToggleFullscreen();
+	
+	
 
-	actions action;																																								//Call an action class for library manipulations
+	actions action;																																																															//Call an action class for library manipulations
 	Level map = { "racetrack", LoadModel("./assets/map/map.obj"), LoadTexture("./assets/map/material.001.png")};																//Initializing entity
 	truenoVehicleCreator truenoCreator = truenoVehicleCreator();
 	Vehicle trueno = truenoCreator.vehicle;
@@ -37,6 +40,10 @@ int main() {
 		auto posY = std::to_string(trueno.position.z);
 
 		trueno = action.movement(trueno, 0.5f);																																	//Entity movement method
+
+		if (GuiButton(Rectangle { 200, 200, 200, 200 }, "Press me!")) {
+			std::cout << "Pressed";
+		}
 
 	 	DrawText((const char *)mouseX.c_str(), 10, GetScreenHeight() - 25, 25, DARKGRAY);																						//Debugging text
 		DrawText((const char*)mouseY.c_str(), 300, GetScreenHeight() - 25, 25, DARKGRAY);
