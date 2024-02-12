@@ -7,6 +7,7 @@
 #ifndef gamelib
 #define gamelib
 
+
 typedef struct Entity {																								//Entity struct - name, model, texture2D, camera3D, vector3 position
 	std::string name;																								//Entity name
 	Model model;																									//Entity 3D model
