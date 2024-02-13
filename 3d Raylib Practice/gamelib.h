@@ -39,6 +39,31 @@ class actions																										//Actions class
 {
 	public:
 
+		void debugMouseXYZ(int x, int y, int size) {																//Debug coordinates of the mouse on the screen					
+			int mousePosX = GetMousePosition().x;																																	//Debugging 
+			int mousePosY = GetMousePosition().y;																																	//Debugging
+			auto mouseX = std::to_string(mousePosX);																																//Debugging
+			auto mouseY = std::to_string(mousePosY);
+			DrawText((const char*)mouseX.c_str(), x, y, size, DARKGRAY);																						//Debugging text
+			DrawText((const char*)mouseY.c_str(), 300 + x, y, size, DARKGRAY);
+		}
+		void debugVehicleXYZ(Vehicle vehicle, int x, int y, int size) {												//Debug coordinates of the vehicle
+			auto posX = std::to_string(vehicle.position.x);																															//Debugging
+			auto posY = std::to_string(vehicle.position.z);
+			DrawText((const char*)posX.c_str(), x, y, 25, DARKGRAY);																												//Debugging text
+			DrawText((const char*)posY.c_str(), 300 + x, y, size, DARKGRAY);
+		}
+
+		Camera sceneCamera() {
+			Camera camera = { 0 };
+			camera.position = { 10.0f, 10.0f, 10.0f };																// Camera position
+			camera.target = { 0.0f, 0.0f, 0.0f };																	// Camera looking at point
+			camera.up = { 0.0f, 1.0f, 0.0f };																		// Camera up vector (rotation towards target)
+			camera.fovy = 90.0f;																					// Camera field-of-view Y
+			camera.projection = CAMERA_PERSPECTIVE;																	// Camera projection type
+			return camera;
+		}
+
 		Vehicle movement(Vehicle vehicle, float speed) {															//Vehicle movement method, with the wheels
 			if (IsKeyDown(KEY_A)) {
 				vehicle.position.x += speed;
