@@ -66,52 +66,68 @@ class actions																										//Actions class
 			return camera;
 		}
 
-		Vehicle movement(Vehicle vehicle, float speed) {															//Vehicle movement method, with the wheels
-			if (IsKeyDown(KEY_A)) {
+
+		Vehicle movementXZ(Vehicle vehicle, float speed, char direction) {											//Vehicle movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
+			if (direction == 'l') {
 				vehicle.position.x += speed;
 				vehicle.wheelFL.position.x += speed;
 				vehicle.wheelFR.position.x += speed;
 				vehicle.wheelRL.position.x += speed;
 				vehicle.wheelRR.position.x += speed;
-
+				vehicle.boundingBox.min.x += speed;
+				vehicle.boundingBox.max.x += speed;
 			}
-			if (IsKeyDown(KEY_D)) {
+			if (direction == 'r') {
 				vehicle.position.x -= speed;
 				vehicle.wheelFL.position.x -= speed;
 				vehicle.wheelFR.position.x -= speed;
 				vehicle.wheelRL.position.x -= speed;
 				vehicle.wheelRR.position.x -= speed;
+				vehicle.boundingBox.min.x -= speed;
+				vehicle.boundingBox.max.x -= speed;
 			}
-			if (IsKeyDown(KEY_W)) {
+			if (direction == 'u') {
 				vehicle.position.z += speed;
 				vehicle.wheelFL.position.z += speed;
 				vehicle.wheelFR.position.z += speed;
 				vehicle.wheelRL.position.z += speed;
 				vehicle.wheelRR.position.z += speed;
+				vehicle.boundingBox.min.z += speed;
+				vehicle.boundingBox.max.z += speed;
 			}
-			if (IsKeyDown(KEY_S)) {
+			if (direction == 'd') {
 				vehicle.position.z -= speed;
 				vehicle.wheelFL.position.z -= speed;
 				vehicle.wheelFR.position.z -= speed;
 				vehicle.wheelRL.position.z -= speed;
 				vehicle.wheelRR.position.z -= speed;
+				vehicle.boundingBox.min.z -= speed;
+				vehicle.boundingBox.max.z -= speed;
 			}
 			
 			return vehicle;
 		}
 
-		Entity movement(Entity entity, float speed) {																	//Entity movement method
-			if (IsKeyDown(KEY_A)) {
+		Entity movementXZ(Entity entity, float speed, char direction) {													//Entity movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
+			if (direction == 'l') {
 				entity.position.x += speed;
+				entity.boundingBox.min.x += speed;
+				entity.boundingBox.max.x += speed;
 			}
-			if (IsKeyDown(KEY_D)) {
+			if (direction == 'r') {
 				entity.position.x -= speed;
+				entity.boundingBox.min.x -= speed;
+				entity.boundingBox.max.x -= speed;
 			}
-			if (IsKeyDown(KEY_W)) {
+			if (direction == 'u') {
 				entity.position.z += speed;
+				entity.boundingBox.min.z += speed;
+				entity.boundingBox.max.z += speed;
 			}
-			if (IsKeyDown(KEY_S)) {
+			if (direction == 'd') {
 				entity.position.z -= speed;
+				entity.boundingBox.min.z -= speed;
+				entity.boundingBox.max.z -= speed;
 			}
 			return entity;
 		}
@@ -202,12 +218,13 @@ class actions																										//Actions class
 			return entity;
 		}
 
-		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {					//Draw the whole vehicle with a scale and tint
+		void vehicleDraw(bool bBox, Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {		//Draw the whole vehicle with a scale and tint. Boolean for the boundingbox
 			DrawModel(vehicle.model, position, vehicleScale, tint);
 			DrawModel(vehicle.wheelFL.model, vehicle.wheelFL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelFR.model, vehicle.wheelFR.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRL.model, vehicle.wheelRL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRR.model, vehicle.wheelRR.position, wheelScale, tint);
+			if (bBox) DrawBoundingBox(vehicle.boundingBox, GREEN);
 		}
 		void vehicleUnload(Vehicle vehicle) {																					//Unload the whole vehicle
 			UnloadTexture(vehicle.texture);

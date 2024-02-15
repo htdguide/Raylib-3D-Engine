@@ -21,21 +21,22 @@ scene3D::scene3D() {
 		ClearBackground(RAYWHITE);
 		BeginMode3D(sceneCamera);																																				//Starting 3d with camera of the entity
 		
-		action.vehicleDraw(trueno, trueno.position, 1.0f, 0.13f, WHITE);
+		action.vehicleDraw(true, trueno, trueno.position, 1.0f, 0.13f, WHITE);
 		DrawModel(map.model, Vector3{ 0 , 0 , 0 }, 250.0f, WHITE);																												//Drawing a model
-		DrawBoundingBox(trueno.boundingBox, GREEN);
 
 		DrawGrid(500, 10.0f);
 		EndMode3D();
 
-		//trueno = action.cameraMovementThirdPerson(trueno, GetMousePosition(), 20.0f, 1.0f);																					//Updating camera position																							//Moving a camera by a mouse
+		sceneCamera = trueno.camera;
+			
+		trueno = action.cameraMovementThirdPerson(trueno, GetMousePosition(), 20.0f, 1.0f);																					//Updating camera position																							//Moving a camera by a mouse
 
 		action.debugMouseXYZ(25, 25, 25);
 		action.debugVehicleXYZ(trueno, 25, 100, 25);
 
-		trueno = action.movement(trueno, 0.5f);																																	//Entity movement method
+		//trueno = action.movementXZ(trueno, 0.1f, 'l');																																	//Entity movement method
 		EndDrawing();
-		UpdateCamera(&sceneCamera, CAMERA_FIRST_PERSON);
+		//UpdateCamera(&sceneCamera, CAMERA_FIRST_PERSON);
 	}
 	action.vehicleUnload(trueno);
 	UnloadTexture(map.texture);
