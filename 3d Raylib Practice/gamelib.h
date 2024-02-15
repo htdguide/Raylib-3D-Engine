@@ -14,12 +14,14 @@ typedef struct Entity {																								//Entity struct - name, model, te
 	Texture2D texture;																								//Entity Texture
 	Camera3D camera;																								//Entity Camera
 	Vector3 position;																								//Entity Position
+	BoundingBox boundingBox;																						//Bounding Box
 }Entity;
 
 typedef struct Level {																								//Level struct - name, model, texture2D
 	std::string name;																								//Level name
 	Model model;																									//Level 3D model
 	Texture2D texture;																								//Level Texture
+	BoundingBox boundingBox;																						//Bounding Box
 }Level;
 
 typedef struct Vehicle {																							//Vehicle struct - name, model, texture2D, camera3D, vector3 position, wheelFL, wheelFR, wheelRL, wheelRR
@@ -32,7 +34,7 @@ typedef struct Vehicle {																							//Vehicle struct - name, model, t
 	Entity wheelFR;																									//Vehicle wheel
 	Entity wheelRL;																									//Vehicle wheel
 	Entity wheelRR;																									//Vehicle wheel
-
+	BoundingBox boundingBox;																						//Bounding Box
 }Vehicle;
 
 class actions																										//Actions class
@@ -44,7 +46,7 @@ class actions																										//Actions class
 			int mousePosY = GetMousePosition().y;																																	//Debugging
 			auto mouseX = std::to_string(mousePosX);																																//Debugging
 			auto mouseY = std::to_string(mousePosY);
-			DrawText((const char*)mouseX.c_str(), x, y, size, DARKGRAY);																						//Debugging text
+			DrawText((const char*)mouseX.c_str(), x, y, size, DARKGRAY);											//Debugging text
 			DrawText((const char*)mouseY.c_str(), 300 + x, y, size, DARKGRAY);
 		}
 		void debugVehicleXYZ(Vehicle vehicle, int x, int y, int size) {												//Debug coordinates of the vehicle
@@ -94,6 +96,7 @@ class actions																										//Actions class
 				vehicle.wheelRL.position.z -= speed;
 				vehicle.wheelRR.position.z -= speed;
 			}
+			
 			return vehicle;
 		}
 
@@ -179,10 +182,12 @@ class actions																										//Actions class
 			vehicle.camera.fovy = 90.0f;																						//Camera FOV in degrees
 			vehicle.camera.projection = CAMERA_PERSPECTIVE;																		//Camera projection
 			vehicle.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = vehicle.texture;									//Assigning a texture to the model
+			vehicle.boundingBox = GetMeshBoundingBox(vehicle.model.meshes[0]);													//Assigning bounding box from the mesh
 			return vehicle;
 		}
-		Level initialize(Level level) {																							//Initializing a level, assigning textures to the models
-			level.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = level.texture;
+		Level initialize(Level level) {																							//Initializing a level
+			level.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = level.texture;										//Assigning textures to the models
+			level.boundingBox = GetMeshBoundingBox(level.model.meshes[0]);														//Assigning bounding box from the mesh
 			return level;
 		}
 		Entity initialize(Entity entity) {																						//Initializing an entity, assigning textures to the models, filling camera info
@@ -193,17 +198,18 @@ class actions																										//Actions class
 			entity.camera.fovy = 90.0f;																							//Camera FOV in degrees
 			entity.camera.projection = CAMERA_PERSPECTIVE;																		//Camera projection		
 			entity.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = entity.texture;										//Assigning a texture to the model
+			entity.boundingBox = GetMeshBoundingBox(entity.model.meshes[0]);													//Assigning bounding box from the mesh
 			return entity;
 		}
 
-		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {					//Draw a whole vehicle with a scale and tint
+		void vehicleDraw(Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {					//Draw the whole vehicle with a scale and tint
 			DrawModel(vehicle.model, position, vehicleScale, tint);
 			DrawModel(vehicle.wheelFL.model, vehicle.wheelFL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelFR.model, vehicle.wheelFR.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRL.model, vehicle.wheelRL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelRR.model, vehicle.wheelRR.position, wheelScale, tint);
 		}
-		void vehicleUnload(Vehicle vehicle) {																					//Unload a whole vehicle
+		void vehicleUnload(Vehicle vehicle) {																					//Unload the whole vehicle
 			UnloadTexture(vehicle.texture);
 			UnloadModel(vehicle.model);
 			UnloadTexture(vehicle.wheelFL.texture);
