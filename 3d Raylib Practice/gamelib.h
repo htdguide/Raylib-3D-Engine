@@ -37,11 +37,6 @@ typedef struct Vehicle {																							//Vehicle struct - name, model, t
 	BoundingBox boundingBox;																						//Bounding Box
 }Vehicle;
 
-class keyboardHandler
-{
-
-};
-
 class actions																										//Actions class
 {
 	public:
@@ -244,6 +239,19 @@ class actions																										//Actions class
 			UnloadModel(vehicle.wheelRR.model);
 		}
 	
+};
+
+class keyboardHandler																								//Keyboard handler class to handle input from the keyboard
+{
+public:
+	actions action;																									//Initializing main class with actions
+	Vehicle vehicleMovement(Vehicle vehicle) {
+		if (IsKeyDown(KEY_A)) vehicle = action.movementXZ(vehicle, 0.1f, 'l');
+		if (IsKeyDown(KEY_D)) vehicle = action.movementXZ(vehicle, 0.1f, 'r');
+		if (IsKeyDown(KEY_W)) vehicle = action.movementXZ(vehicle, 0.1f, 'u');
+		if (IsKeyDown(KEY_S)) vehicle = action.movementXZ(vehicle, 0.1f, 'd');
+		return vehicle;
+	}
 };
 
 #endif
