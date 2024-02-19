@@ -137,7 +137,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scenario.cpp" />
     <ClCompile Include="scene3D.cpp" />
-    <ClCompile Include="trueno.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamelib.h" />

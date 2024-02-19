@@ -37,6 +37,11 @@ typedef struct Vehicle {																							//Vehicle struct - name, model, t
 	BoundingBox boundingBox;																						//Bounding Box
 }Vehicle;
 
+class keyboardHandler
+{
+
+};
+
 class actions																										//Actions class
 {
 	public:

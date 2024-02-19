@@ -24,7 +24,7 @@
     <ClCompile Include="gamelib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="trueno.cpp">
+    <ClCompile Include="scene3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="trueno.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
