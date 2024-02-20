@@ -1,11 +1,11 @@
 #include "raylib.h"
-#include "scene3D.h"
+#include "console.h"
 
 int main() {
 
 	InitWindow(GetScreenWidth(), GetScreenHeight(), "3D Raylib Practice");																																	//Initializing window
 	SetTargetFPS(60);
 	ToggleFullscreen();
-	scene3D();
+	console();
 	return 0;
 }

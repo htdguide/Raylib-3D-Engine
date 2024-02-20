@@ -2,10 +2,10 @@
 #include <raylib.h>
 #include <cmath>
 
-class truenoVehicleCreator {
+class truenoCreator{																									//Initializing exact trueno car, all of the models abd textures are here
 public:
 	Vehicle vehicle;
-	truenoVehicleCreator() {																											//Initializing exact trueno car, all of the models abd textures are here
+	truenoCreator() {
 		actions action;
 
 		//Creating 4 Entities which are the wheels
@@ -16,7 +16,7 @@ public:
 
 
 		//Creating a Vehicle with the wheels
-		vehicle = Vehicle{ "Trueno", LoadModel("./assets/ae86/ToyotaAE86.obj"), LoadTexture("./assets/ae86/textures/Palette.png"), Camera3D{0}, Vector3{ 0.0f, 1.0f, 0.0f }, wheelFL, wheelFR, wheelRL, wheelRR }; //Vehicle constructor
+		vehicle = { "Trueno", LoadModel("./assets/ae86/ToyotaAE86.obj"), LoadTexture("./assets/ae86/textures/Palette.png"), Camera3D{0}, Vector3{ 0.0f, 1.0f, 0.0f }, wheelFL, wheelFR, wheelRL, wheelRR }; //Vehicle constructor
 
 		//Coordinates for the wheels
 		vehicle.wheelFL.position = Vector3{ vehicle.position.x + 3.5f, vehicle.position.y, vehicle.position.z + 5.0f };										//Relative positioning of the wheel

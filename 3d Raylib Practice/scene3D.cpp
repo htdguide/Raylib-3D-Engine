@@ -1,20 +1,19 @@
-#include "scene3D.h"
-#include "raylib.h"
-#include "gamelib.h"
-#include <cmath>
-#include "trueno.h"
-#define RAYGUI_IMPLEMENTATION
-#include "C:\Users\mogil\source\repos\htdguide\3d-Raylib-Practice\raylib-4.5.0_win64_msvc16\raygui-master\src\raygui.h"
+#include "scene3D.h"				//scene3D Header 
+//#include "raygui.h"					//rayGUI for the interface
+#include "raylib.h"					//raylib for existance of this project
+#include "gamelib.h"				//gamelib library with all of the actions
+#include <cmath>					//c math
+#include "trueno.h"					//trueno vehicle initialization header
 
 scene3D::scene3D() {
+	truenoCreator truenoCreator;
 	keyboardHandler keyboard;
+	interfaceHandler interfaceHandler;
 	actions action;																														//Call an action class for library manipulations
 	Camera sceneCamera = action.sceneCamera();
 	Level map = { "racetrack", LoadModel("./assets/map/map.obj"), LoadTexture("./assets/map/material.001.png") };						//Initializing entity
-	truenoVehicleCreator truenoCreator = truenoVehicleCreator();
 	Vehicle trueno = truenoCreator.vehicle;
 	map = action.initialize(map);
-
 
 	while (!WindowShouldClose() && !IsKeyPressed(KEY_ESCAPE)) {
 		BeginDrawing();
@@ -34,7 +33,7 @@ scene3D::scene3D() {
 
 		action.debugMouseXYZ(25, 25, 25);
 		action.debugVehicleXYZ(trueno, 25, 100, 25);
-																													
+		//interfaceHandler.console();
 		EndDrawing();
 		//UpdateCamera(&sceneCamera, CAMERA_FIRST_PERSON);
 	}
