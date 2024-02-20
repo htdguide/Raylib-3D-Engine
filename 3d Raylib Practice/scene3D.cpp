@@ -40,6 +40,4 @@ scene3D::scene3D() {
 	action.vehicleUnload(trueno);
 	UnloadTexture(map.texture);
 	UnloadModel(map.model);
-
-	CloseWindow();
 }

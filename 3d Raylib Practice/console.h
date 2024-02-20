@@ -13,8 +13,12 @@ public:
 	console();
 
 	void commands(string input) {
+
 		if (input == "scene3d") {
 			scene3D();
 		}
+
+
+
 	}
 };

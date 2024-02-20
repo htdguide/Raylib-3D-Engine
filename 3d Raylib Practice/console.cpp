@@ -9,8 +9,9 @@
 
 
 console::console() {
-	while (!WindowShouldClose() && !IsKeyPressed(KEY_ESCAPE)) {
+	bool termination = false;
+	while (!WindowShouldClose() && !termination) {
 		commands("scene3d");
+		termination = true;
 	}
-	CloseWindow();
 }

@@ -7,5 +7,6 @@ int main() {
 	SetTargetFPS(60);
 	ToggleFullscreen();
 	console();
+	CloseWindow();
 	return 0;
 }
