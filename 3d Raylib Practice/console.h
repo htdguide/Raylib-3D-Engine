@@ -1,10 +1,10 @@
 #include "string.h"
 #include <iostream>
 #include "scene3D.h"				//scene3D Header 
-//#include "raygui.h"					//rayGUI for the interface
 #include "raylib.h"					//raylib for existance of this project
 #include "gamelib.h"				//gamelib library with all of the actions
 #include <cmath>					//c math
+#define RAYGUI_IMPLEMENTATION
 
 using namespace std;
 
