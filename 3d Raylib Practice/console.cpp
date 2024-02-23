@@ -10,11 +10,17 @@
 
 console::console() {
 	bool termination = false;
+	consoleWindowClass consoleWindow;
+	consoleWindow.size = Vector2{ 1280, 720 };
+
 	while (!WindowShouldClose() && !termination) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
-		const char *text = "ss";
-		if (GuiButton(Rectangle{ 200, 200, 200, 200 }, "Press me!")) {
+
+		consoleWindow.borderColor = GRAY;
+		consoleWindow.drawConsole();
+
+		if (GuiButton(Rectangle{200, 200, 200, 200 }, "Hello")) {
 			commands("scene3d");
 			termination = true;
 		}
