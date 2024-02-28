@@ -11,19 +11,12 @@
 console::console() {
 	bool termination = false;
 	consoleWindowClass consoleWindow;
-	consoleWindow.size = Vector2{ 1280, 720 };
+	consoleWindow.size = Vector2{ (float)GetScreenWidth()/2, (float)GetScreenHeight()/2};
 
 	while (!WindowShouldClose() && !termination) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
-
-		consoleWindow.borderColor = GRAY;
-		consoleWindow.drawConsole();
-
-		if (GuiButton(Rectangle{200, 200, 200, 200 }, "Hello")) {
-			commands("scene3d");
-			termination = true;
-		}
+		if (consoleWindow.console()) termination = true;
 		EndDrawing();
 	}
 }
