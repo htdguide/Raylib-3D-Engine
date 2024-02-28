@@ -12,17 +12,8 @@ using namespace std;
 class console {
 public:
 	console();
-
-	void commands(string input) {
-
-		if (input == "scene3d") {
-			scene3D();
-		}
-
-
-
-	}
 };
+
 class consoleWindowClass {																																//Console Class
 public:
 	int textBoxSize = 40;																																//Textbox height size
@@ -114,11 +105,20 @@ public:
 	}
 
 	void textBoxInputHandler() {																										
-							
+		commands(textBuffer[0].text);
 		for (int i = 0; i++; i < sizeof(textBuffer) - 1) {																							//Moving all of the data to the upper line
 			strcpy(textBuffer[i+1].text, textBuffer[i].text);
 		}
-
 		strcpy(textBuffer[0].text, "");																												//Erasing main input line																						
+	}
+
+	void commands(string input) {
+
+		if (input == "scene3d") {
+			scene3D();
+		}
+
+
+
 	}
 };
