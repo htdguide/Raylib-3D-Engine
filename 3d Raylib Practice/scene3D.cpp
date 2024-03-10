@@ -21,8 +21,8 @@ scene3D::scene3D() {
 		ClearBackground(RAYWHITE);
 		BeginMode3D(sceneCamera);																										//Starting 3d with camera of the entity
 		
-		action.vehicleDraw(true, trueno, trueno.position, 1.0f, 0.13f, WHITE);
-		DrawModel(map.model, Vector3{ 0 , 0 , 0 }, 250.0f, WHITE);																		//Drawing a model
+		action.vehicleDraw(true, trueno, trueno.position, 1.0f, 0.13f, WHITE);															//Drawing the vehicle
+		DrawModel(map.model, Vector3{ 0 , 0 , 0 }, 250.0f, WHITE);																		//Drawing the model
 
 		DrawGrid(500, 10.0f);
 		EndMode3D();
@@ -34,9 +34,7 @@ scene3D::scene3D() {
 
 		action.debugMouseXYZ(25, 25, 25);
 		action.debugVehicleXYZ(trueno, 25, 100, 25);
-		//interfaceHandler.console();
 		EndDrawing();
-		//UpdateCamera(&sceneCamera, CAMERA_FIRST_PERSON);
 	}
 	action.vehicleUnload(trueno);
 	UnloadTexture(map.texture);

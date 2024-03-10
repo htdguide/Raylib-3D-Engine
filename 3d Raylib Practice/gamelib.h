@@ -42,17 +42,17 @@ class actions																										//Actions class
 	public:
 
 		void debugMouseXYZ(int x, int y, int size) {																//Debug coordinates of the mouse on the screen					
-			int mousePosX = GetMousePosition().x;																																	//Debugging 
-			int mousePosY = GetMousePosition().y;																																	//Debugging
-			auto mouseX = std::to_string(mousePosX);																																//Debugging
+			int mousePosX = GetMousePosition().x;																	//Debugging 
+			int mousePosY = GetMousePosition().y;																	//Debugging
+			auto mouseX = std::to_string(mousePosX);																//Debugging
 			auto mouseY = std::to_string(mousePosY);
 			DrawText((const char*)mouseX.c_str(), x, y, size, DARKGRAY);											//Debugging text
 			DrawText((const char*)mouseY.c_str(), 300 + x, y, size, DARKGRAY);
 		}
 		void debugVehicleXYZ(Vehicle vehicle, int x, int y, int size) {												//Debug coordinates of the vehicle
-			auto posX = std::to_string(vehicle.position.x);																															//Debugging
+			auto posX = std::to_string(vehicle.position.x);															//Debugging
 			auto posY = std::to_string(vehicle.position.z);
-			DrawText((const char*)posX.c_str(), x, y, 25, DARKGRAY);																												//Debugging text
+			DrawText((const char*)posX.c_str(), x, y, 25, DARKGRAY);												//Debugging text
 			DrawText((const char*)posY.c_str(), 300 + x, y, size, DARKGRAY);
 		}
 
