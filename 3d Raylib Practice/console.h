@@ -1,10 +1,15 @@
+//////////////////////////////////////		Include additional command applications here to run them via console
+#include "scene3D.h"				//		scene3D application header 
+									//
+									//
+//////////////////////////////////////
+
 #include "string.h"
 #include <iostream>
-#include "scene3D.h"				//scene3D Header 
-#include "raylib.h"					//raylib for existance of this project
-#include "gamelib.h"				//gamelib library with all of the actions
-#include <cmath>					//c math
-#include "raygui.h"					//rayGUI for the interface
+#include "raylib.h"																										//raylib for existance of this project
+#include "gamelib.h"																									//gamelib library with all of the actions
+#include <cmath>																										//c math
+#include "raygui.h"																										//rayGUI for the interface
 #define RAYGUI_IMPLEMENTATION
 
 using namespace std;
@@ -14,35 +19,47 @@ public:
 	console();
 };
 
-class consoleWindowClass {																																//Console Class
+class consoleWindowClass {																								//Console Class
+
+	
+	void commands(string input) {																						//Fill new commands here to get access through console																												//Commands list 
+
+		if (input == "scene3d") {																						//3d scene creation command
+			scene3D();																									//scene3D application
+		}
+
+
+
+	}
+
 public:
-	int textBoxSize = 40;																																//Textbox height size
-	int topBar = 20;																																	//Window top bar size (height)
-	int buttonsWidth = 30;																																//Buttons width
+	int textBoxSize = 40;																								//Textbox height size
+	int topBar = 20;																									//Window top bar size (height)
+	int buttonsWidth = 30;																								//Buttons width
 
-	struct textBufferStruct {																															//textBuffer structure to create array of structs later
-		char text[128] = { 0 };																															//One line of the text
+	struct textBufferStruct {																							//textBuffer structure to create array of structs later
+		char text[128] = { 0 };																							//One line of the text
 	};
-	textBufferStruct textBuffer[20];																													//Array of structs, each struct is just a line of the text
+	textBufferStruct textBuffer[20];																					//Array of structs, each struct is just a line of the text
 
-	bool exitStatus = false;																															//Exit status for the console window closing
-	bool textBoxStatus = false;																															//textBox activation status
-	float scaleNum = 166348;																															//This number came from the formula [ScreenWidth * ScreesHeight / desired font size]
-	int fontSize = GetScreenHeight() * GetScreenWidth() / scaleNum;																						//Getting font size 30 with resolution 2736 x 1824
+	bool exitStatus = false;																							//Exit status for the console window closing
+	bool textBoxStatus = false;																							//textBox activation status
+	float scaleNum = 166348;																							//This number came from the formula [ScreenWidth * ScreesHeight / desired font size]
+	int fontSize = GetScreenHeight() * GetScreenWidth() / scaleNum;														//Getting font size 30 with resolution 2736 x 1824
 		
 
-	Vector2 backgroundSize;																																//Size of the background box
-	Vector2 backgroundPosition;																															//Position of the background
-	Vector2 position{ 10, 10 };																															//Position of the console
-	Vector2 size = { 800 , 600 };																														//Size of the console
-	Vector2 exitButtonSize = { (float)buttonsWidth, (float)topBar };																					//Text button size assigned above
+	Vector2 backgroundSize;																								//Size of the background box
+	Vector2 backgroundPosition;																							//Position of the background
+	Vector2 position{ 10, 10 };																							//Position of the console
+	Vector2 size = { 800 , 600 };																						//Size of the console
+	Vector2 exitButtonSize = { (float)buttonsWidth, (float)topBar };													//Text button size assigned above
 	
-	int borders = 10;																																	//Borders padding [Choose between 0 and 100]
+	int borders = 10;																									//Borders padding [Choose between 0 and 100]
 	
-	Color borderColor = DARKGRAY;																														//Border Color
-	Color backgroundColor = BLACK;																														//Background Color
-	Color textColor = WHITE;																															//Text Color
-	Color textBoxColor = BLACK;																															//Textbox Color
+	Color borderColor = DARKGRAY;																						//Border Color
+	Color backgroundColor = BLACK;																						//Background Color
+	Color textColor = WHITE;																							//Text Color
+	Color textBoxColor = BLACK;																							//Textbox Color
 	Rectangle textBox;
 
 
@@ -108,13 +125,4 @@ public:
 		strcpy(textBuffer[0].text, "");																													//Erasing main input line																						
 	}
 
-	void commands(string input) {																														//Commands list 
-
-		if (input == "scene3d") {																														//3d scene creation command
-			scene3D();
-		}
-
-
-
-	}
 };
