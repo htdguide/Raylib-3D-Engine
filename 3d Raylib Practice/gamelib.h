@@ -8,7 +8,7 @@
 #define gamelib
 
 
-typedef struct Entity {																								//Entity struct - name, model, texture2D, camera3D, vector3 position
+typedef struct Entity3D {																							//Entity struct - name, model, texture2D, camera3D, vector3 position
 	std::string name;																								//Entity name
 	Model model;																									//Entity 3D model
 	Texture2D texture;																								//Entity Texture
@@ -17,27 +17,27 @@ typedef struct Entity {																								//Entity struct - name, model, te
 	BoundingBox boundingBox;																						//Bounding Box
 }Entity;
 
-typedef struct Level {																								//Level struct - name, model, texture2D
+typedef struct Level3D {																							//Level struct - name, model, texture2D
 	std::string name;																								//Level name
 	Model model;																									//Level 3D model
 	Texture2D texture;																								//Level Texture
 	BoundingBox boundingBox;																						//Bounding Box
 }Level;
 
-typedef struct Vehicle {																							//Vehicle struct - name, model, texture2D, camera3D, vector3 position, wheelFL, wheelFR, wheelRL, wheelRR
+typedef struct Vehicle3D {																							//Vehicle struct - name, model, texture2D, camera3D, vector3 position, wheelFL, wheelFR, wheelRL, wheelRR
 	std::string name;																								//Vehicle name
 	Model model;																									//Vehicle 3D model
 	Texture2D texture;																								//Vehicle Texture
 	Camera3D camera;																								//Vehicle Camera
 	Vector3 position;																								//Vehicle Position			
-	Entity wheelFL;																									//Vehicle wheel
-	Entity wheelFR;																									//Vehicle wheel
-	Entity wheelRL;																									//Vehicle wheel
-	Entity wheelRR;																									//Vehicle wheel
+	Entity3D wheelFL;																								//Vehicle wheel
+	Entity3D wheelFR;																								//Vehicle wheel
+	Entity3D wheelRL;																								//Vehicle wheel
+	Entity3D wheelRR;																								//Vehicle wheel
 	BoundingBox boundingBox;																						//Bounding Box
 }Vehicle;
 
-class actions																										//Actions class
+class actions3D																										//Actions class
 {
 	public:
 
@@ -49,7 +49,7 @@ class actions																										//Actions class
 			DrawText((const char*)mouseX.c_str(), x, y, size, DARKGRAY);											//Debugging text
 			DrawText((const char*)mouseY.c_str(), 300 + x, y, size, DARKGRAY);
 		}
-		void debugVehicleXYZ(Vehicle vehicle, int x, int y, int size) {												//Debug coordinates of the vehicle
+		void debugVehicleXYZ(Vehicle3D vehicle, int x, int y, int size) {											//Debug coordinates of the vehicle
 			auto posX = std::to_string(vehicle.position.x);															//Debugging
 			auto posY = std::to_string(vehicle.position.z);
 			DrawText((const char*)posX.c_str(), x, y, 25, DARKGRAY);												//Debugging text
@@ -67,7 +67,7 @@ class actions																										//Actions class
 		}
 
 
-		Vehicle movementXZ(Vehicle vehicle, float speed, char direction) {											//Vehicle movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
+		Vehicle3D movementXZ(Vehicle3D vehicle, float speed, char direction) {										//Vehicle movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
 			if (direction == 'l') {
 				vehicle.position.x += speed;
 				vehicle.wheelFL.position.x += speed;
@@ -108,7 +108,7 @@ class actions																										//Actions class
 			return vehicle;
 		}
 
-		Entity movementXZ(Entity entity, float speed, char direction) {													//Entity movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
+		Entity3D movementXZ(Entity3D entity, float speed, char direction) {													//Entity movement method, directions are 'l' 'r' 'u' 'd' (Left, Right, Up and Down)
 			if (direction == 'l') {
 				entity.position.x += speed;
 				entity.boundingBox.min.x += speed;
@@ -132,7 +132,7 @@ class actions																										//Actions class
 			return entity;
 		}
 	
-		Entity cameraMovementThirdPerson(Entity entity, Vector2 mousePos, float distance, float speed) {				//Method for entity camera control (Adjustable distance and speed)
+		Entity3D cameraMovementThirdPerson(Entity3D entity, Vector2 mousePos, float distance, float speed) {			//Method for entity camera control (Adjustable distance and speed)
 
 			float xAngle = mousePos.x / (GetScreenWidth() / 360.0f);													//Getting angle values from the screen width
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
@@ -161,7 +161,7 @@ class actions																										//Actions class
 			return entity;
 		}
 
-		Vehicle cameraMovementThirdPerson(Vehicle vehicle, Vector2 mousePos, float distance, float speed) {				//Method for vehicle camera control (Adjustable distance and speed)
+		Vehicle3D cameraMovementThirdPerson(Vehicle3D vehicle, Vector2 mousePos, float distance, float speed) {			//Method for vehicle camera control (Adjustable distance and speed)
 
 			float xAngle = mousePos.x / (GetScreenWidth() / 360.0f);													//Getting angle values from the screen width
 			if (mousePos.y == 0) mousePos.y++;																			//Removing 0 from the upcoming formula
@@ -190,7 +190,7 @@ class actions																										//Actions class
 			return vehicle;
 		}
 	
-		Vehicle initialize(Vehicle vehicle) {																					//Initializing a vehicle, assigning textures to the models, filling camera info
+		Vehicle3D initialize(Vehicle3D vehicle) {																				//Initializing a vehicle, assigning textures to the models, filling camera info
 			vehicle.camera = { 0 };
 			vehicle.camera.position = { vehicle.position.x + 10.0f, vehicle.position.y + 10.0f, vehicle.position.z + 10.0f };	//Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
 			vehicle.camera.target = vehicle.position;																			//Assigning at where camera looking at
@@ -201,12 +201,12 @@ class actions																										//Actions class
 			vehicle.boundingBox = GetMeshBoundingBox(vehicle.model.meshes[0]);													//Assigning bounding box from the mesh
 			return vehicle;
 		}
-		Level initialize(Level level) {																							//Initializing a level
+		Level3D initialize(Level3D level) {																						//Initializing a level
 			level.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = level.texture;										//Assigning textures to the models
 			level.boundingBox = GetMeshBoundingBox(level.model.meshes[0]);														//Assigning bounding box from the mesh
 			return level;
 		}
-		Entity initialize(Entity entity) {																						//Initializing an entity, assigning textures to the models, filling camera info
+		Entity3D initialize(Entity3D entity) {																					//Initializing an entity, assigning textures to the models, filling camera info
 			entity.camera = { 0 };																								//Creating a camera
 			entity.camera.position = { entity.position.x + 10.0f, entity.position.y + 10.0f, entity.position.z + 10.0f };		//Calculating camera position with the gap, anyway this parameter will be instantly rewritten by cameraMovementThridPerson
 			entity.camera.target = entity.position;																				//Assigning at where camera looking at
@@ -218,7 +218,7 @@ class actions																										//Actions class
 			return entity;
 		}
 
-		void vehicleDraw(bool bBox, Vehicle vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {		//Draw the whole vehicle with a scale and tint. Boolean for the boundingbox
+		void vehicleDraw(bool bBox, Vehicle3D vehicle, Vector3 position, float vehicleScale, float wheelScale, Color tint) {	//Draw the whole vehicle with a scale and tint. Boolean for the boundingbox
 			DrawModel(vehicle.model, position, vehicleScale, tint);
 			DrawModel(vehicle.wheelFL.model, vehicle.wheelFL.position, wheelScale, tint);
 			DrawModel(vehicle.wheelFR.model, vehicle.wheelFR.position, wheelScale, tint);
@@ -226,7 +226,7 @@ class actions																										//Actions class
 			DrawModel(vehicle.wheelRR.model, vehicle.wheelRR.position, wheelScale, tint);
 			if (bBox) DrawBoundingBox(vehicle.boundingBox, GREEN);
 		}
-		void vehicleUnload(Vehicle vehicle) {																					//Unload the whole vehicle
+		void vehicleUnload(Vehicle3D vehicle) {																					//Unload the whole vehicle
 			UnloadTexture(vehicle.texture);
 			UnloadModel(vehicle.model);
 			UnloadTexture(vehicle.wheelFL.texture);
@@ -241,11 +241,11 @@ class actions																										//Actions class
 	
 };
 
-class keyboardHandler																								//Keyboard handler class to handle input from the keyboard
+class keyboardHandler																											//Keyboard handler class to handle input from the keyboard
 {
 	public:
-		actions action;																									//Initializing main class with actions
-		Vehicle vehicleMovement(Vehicle vehicle) {
+		actions3D action;																										//Initializing main class with actions
+		Vehicle3D vehicleMovement(Vehicle3D vehicle) {
 			if (IsKeyDown(KEY_A)) vehicle = action.movementXZ(vehicle, 0.1f, 'l');
 			if (IsKeyDown(KEY_D)) vehicle = action.movementXZ(vehicle, 0.1f, 'r');
 			if (IsKeyDown(KEY_W)) vehicle = action.movementXZ(vehicle, 0.1f, 'u');
@@ -257,7 +257,7 @@ class keyboardHandler																								//Keyboard handler class to handle 
 class interfaceHandler
 {
 	public:
-		actions action;
+		actions3D action;
 
 		void console() {
 			//GuiLabel(Rectangle{ 20, 20, 20, 20 }, "hello");

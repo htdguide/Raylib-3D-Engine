@@ -10,10 +10,10 @@ scene3D::scene3D() {
 	truenoCreator truenoCreator;
 	keyboardHandler keyboard;
 	interfaceHandler interfaceHandler;
-	actions action;																														//Call an action class for library manipulations
+	actions3D action;																														//Call an action class for library manipulations
 	Camera sceneCamera = action.sceneCamera();
-	Level map = { "racetrack", LoadModel("./assets/map/map.obj"), LoadTexture("./assets/map/material.001.png") };						//Initializing entity
-	Vehicle trueno = truenoCreator.vehicle;
+	Level3D map = { "racetrack", LoadModel("./assets/map/map.obj"), LoadTexture("./assets/map/material.001.png") };						//Initializing entity
+	Vehicle3D trueno = truenoCreator.vehicle;
 	map = action.initialize(map);
 
 	while (!WindowShouldClose() && !IsKeyPressed(KEY_ESCAPE)) {

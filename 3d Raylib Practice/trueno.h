@@ -4,15 +4,15 @@
 
 class truenoCreator{																									//Initializing exact trueno car, all of the models abd textures are here
 public:
-	Vehicle vehicle;
+	Vehicle3D vehicle;
 	truenoCreator() {
-		actions action;
+		actions3D action;
 
 		//Creating 4 Entities which are the wheels
-		Entity wheelFL{ "wheelFL", LoadModel("./assets/wheel/wheel.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };			//Entity constructor
-		Entity wheelFR{ "wheelFR", LoadModel("./assets/wheel/wheelR.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };		//Entity constructor
-		Entity wheelRR{ "wheelRR", LoadModel("./assets/wheel/wheelR.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };		//Entity constructor
-		Entity wheelRL{ "wheelRL", LoadModel("./assets/wheel/wheel.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };			//Entity constructor
+		Entity3D wheelFL{ "wheelFL", LoadModel("./assets/wheel/wheel.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };			//Entity constructor
+		Entity3D wheelFR{ "wheelFR", LoadModel("./assets/wheel/wheelR.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };		//Entity constructor
+		Entity3D wheelRR{ "wheelRR", LoadModel("./assets/wheel/wheelR.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };		//Entity constructor
+		Entity3D wheelRL{ "wheelRL", LoadModel("./assets/wheel/wheel.obj"), LoadTexture("./assets/wheel/texturealbedo.png"), Camera3D{}, Vector3{} };			//Entity constructor
 
 
 		//Creating a Vehicle with the wheels

@@ -27,9 +27,6 @@ class consoleWindowClass {																								//Console Class
 		if (input == "scene3d") {																						//3d scene creation command
 			scene3D();																									//scene3D application
 		}
-
-
-
 	}
 
 public:
