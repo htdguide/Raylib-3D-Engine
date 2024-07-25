@@ -8,3 +8,5 @@ Files working scheme:
 
 Screenshots:
 ![screenshot 1](https://github.com/user-attachments/assets/3e98c536-edeb-41e8-9cfd-318d58554eb7)
+
+![Screenshot 2024-07-25 203416](https://github.com/user-attachments/assets/77a43dd4-f15f-4790-8376-6cd4116614a0)
