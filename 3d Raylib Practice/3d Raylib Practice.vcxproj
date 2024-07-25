@@ -138,6 +138,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainmenu.cpp" />
     <ClCompile Include="scenario.cpp" />
+    <ClCompile Include="scene2D.cpp" />
     <ClCompile Include="scene3D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="gamelib.h" />
     <ClInclude Include="mainmenu.h" />
     <ClInclude Include="scenario.h" />
+    <ClInclude Include="scene2D.h" />
     <ClInclude Include="scene3D.h" />
     <ClInclude Include="trueno.h" />
   </ItemGroup>

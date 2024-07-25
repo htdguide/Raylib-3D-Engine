@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\apps">
+      <UniqueIdentifier>{fab3aa8c-63b6-4a3e-b092-1a20d6bd1add}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\apps">
+      <UniqueIdentifier>{427eb221-57e0-4f75-97dc-c19214dfab69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,14 +30,17 @@
     <ClCompile Include="gamelib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scene3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mainmenu.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene3D.cpp">
+      <Filter>Source Files\apps</Filter>
+    </ClCompile>
+    <ClCompile Include="scene2D.cpp">
+      <Filter>Source Files\apps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,14 +53,17 @@
     <ClInclude Include="trueno.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scene3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mainmenu.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene3D.h">
+      <Filter>Header Files\apps</Filter>
+    </ClInclude>
+    <ClInclude Include="scene2D.h">
+      <Filter>Header Files\apps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

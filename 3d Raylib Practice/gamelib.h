@@ -35,6 +35,7 @@ typedef struct Vehicle3D {																							//Vehicle struct - name, model,
 	Entity3D wheelRL;																								//Vehicle wheel
 	Entity3D wheelRR;																								//Vehicle wheel
 	BoundingBox boundingBox;																						//Bounding Box
+
 }Vehicle;
 
 class actions3D																										//Actions class
